@@ -2,7 +2,7 @@
 <div class="selector" v-bind:class="{ disabled: disabled }">
     <label>{{title}}</label>
     
-    <input type="text" v-model="val" :disabled="disabled" @input="change"/>
+    <input type="text" v-model="val" autocomplete="off" :disabled="disabled" @input="change"/>
     <Current class="unit" v-model="unit" :disabled="disabled" @input="change"/>
 </div>
 </template>

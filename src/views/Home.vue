@@ -72,9 +72,11 @@ export default {
 <style lang="scss">
 .home {
   display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
   overflow-x: auto;
   margin: 0 16px 0 16px;
   padding-bottom: 16px;
-  // justify-content: center;
+  
 }
 </style>

@@ -8,22 +8,22 @@
     <div class="inputs">
       <div class="row">
         <label :for="'vmax' + id">Nominal voltage (V<sub>max</sub>)</label>
-        <input type="text" :id="'vmax' + id" v-model="vMax"/>
+        <input type="text" :id="'vmax' + id" v-model="vMax" autocomplete="off"/>
         <span class="suffix">V</span>
       </div>
       <div class="row">
         <label :for="'vmin' + id">Discharge voltage (V<sub>min</sub>)</label>
-        <input type="text" :id="'vmin' + id" v-model="vMin"/>
+        <input type="text" :id="'vmin' + id" v-model="vMin" autocomplete="off"/>
         <span class="suffix">V</span>
       </div>
       <div class="row">
         <label :for="'cap' + id">Capacitance (C)</label>
-        <input type="text" :id="'cap' + id" v-model="cap"/>
+        <input type="text" :id="'cap' + id" v-model="cap" autocomplete="off"/>
         <span class="suffix" >F</span>
       </div>
       <div class="row">
         <label :for="'esr' + id">Equivalent series resistance (ESR)</label>
-        <input type="text" :id="'esr' + id" v-model="esr"/>
+        <input type="text" :id="'esr' + id" v-model="esr" autocomplete="off"/>
         <span class="suffix">Ω</span>
       </div>
       <div class="row">Current consumptions in different modes</div>
@@ -43,7 +43,7 @@
       <div class="ldo" v-bind:class="{ disabled: !ldoEnabled }">
         <div class="row">
           <label :for="'ldoout' + id">Output voltage</label>
-          <input type="text" :id="'ldoout' + id" v-model="ldo.vOut" :disabled="!ldoEnabled" />
+          <input type="text" :id="'ldoout' + id" v-model="ldo.vOut" :disabled="!ldoEnabled" autocomplete="off"/>
           <span class="suffix">V</span>
         </div>
         <!-- <div class="row">
@@ -67,6 +67,10 @@
         <div class="label">Max voltage drop:</div>
         <div v-if="maxVoltageDrop >= 0.001" class="value">{{maxVoltageDrop | float(3)}} V</div>
         <div v-if="maxVoltageDrop < 0.001" class="value">&lt; 0.001 V</div>
+      </div>
+      <div  v-if="maxVoltageDrop >= 0.1" class="row">
+        <div class="label">Recommended decoupling capacitor:</div>
+        <div class="value">{{dCapacitor | capacitanse}}</div>
       </div>
       <div class="row">
         <div class="label">Constant current discharge:</div>
@@ -127,6 +131,27 @@ export default {
       const maxCurrent = Math.max(runCurrent, idleCurrent, sleepCurrent);
 
       return this.esr * maxCurrent;
+    },
+    dCapacitor() {
+      const runTime = this.getTime(this.run.time, this.run.timeUnit);
+      const runCurrent = this.getCurrent(this.run.current, this.run.currentUnit);
+      const idleTime = this.getTime(this.idle.time, this.idle.timeUnit);
+      const idleCurrent = this.getCurrent(this.idle.current, this.idle.currentUnit);
+      const sleepTime = this.getTime(this.sleep.time, this.sleep.timeUnit);
+      const sleepCurrent = this.getCurrent(this.sleep.current, this.sleep.currentUnit);
+      
+      const modes = [{t: runTime, c: runCurrent}, {t: idleTime, c: idleCurrent}, {t: sleepTime, c: sleepCurrent}];
+      let maxCurrentMode = null;
+      for (let mode of modes) {
+        if (maxCurrentMode == null) {
+          maxCurrentMode = mode;
+          continue;
+        }
+        if (mode.c > maxCurrentMode.c)
+          maxCurrentMode = mode;
+      }
+
+      return maxCurrentMode.c * maxCurrentMode.t / 0.1;
     },
     ccDischarge() {
       let result = (this.cap * (this.vMax - this.vMin)) / this.avgCurrent;
@@ -251,6 +276,26 @@ export default {
       const sText = s > 0 ? s + 's' : '';
 
       return yText + dText + hText + mText + sText;
+    },
+    capacitanse(v) {
+      const fn = (v, u) => `${v.toFixed(0)} ${u}`;
+
+      let value = v;
+
+      if (value > 1)
+        return fn(value, 'F');
+      
+      // value *= 1000;
+      // if (value > 1)
+      //   return fn(value, 'mF');
+
+      value *= 1000000;
+      if (value > 1)
+        return fn(value, 'µF');
+      
+      value *= 1000;
+      if (value > 1)
+        return fn(value, 'nF');
     }
   }
 }
@@ -337,6 +382,9 @@ export default {
     }
     .value {
       font-weight: bold;
+    }
+    .additional-capacitor {
+      margin-left: 8px;
     }
   }
 }
