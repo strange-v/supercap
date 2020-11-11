@@ -38,9 +38,9 @@
         v-model="sleep"/>
       <div class="row">
         <input type="checkbox" :id="'ldo' + id" v-model="ldoEnabled">
-        <label :for="'ldo' + id">LDO enabled</label>
+        <label :for="'ldo' + id">Use LDO</label>
       </div>
-      <div class="ldo" v-bind:class="{ disabled: !ldoEnabled }">
+      <div v-if="ldoEnabled" class="ldo">
         <div class="row">
           <label :for="'ldoout' + id">Output voltage</label>
           <input type="text" :id="'ldoout' + id" v-model="ldo.vOut" :disabled="!ldoEnabled" autocomplete="off"/>
@@ -304,6 +304,7 @@ export default {
 <style scoped lang="scss">
 .capacitor {
   margin-right: 8px;
+  margin-bottom: 16px;
   width: 350px;
   min-width: 350px;
   border: 1px solid #ccc;

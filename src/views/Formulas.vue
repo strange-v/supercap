@@ -18,9 +18,9 @@
     <p class="center">or</p>
     <div class="formula" v-katex:display="'W_{drop}=I(ESR + \\frac{t}{C})'"></div>
     <ul class="f-desc">
-      <li><span v-katex:auto>\(I\)</span> &mdash; Current (A)</li>
-      <li><span v-katex:auto>\(ESR\)</span> &mdash; Equivalent series resistance (ohms)</li>
-      <li><span v-katex:auto>\(t\)</span> &mdash; Time (seconds)</li>
+      <li><span v-katex:auto>\(I\)</span> &mdash; current (A)</li>
+      <li><span v-katex:auto>\(ESR\)</span> &mdash; equivalent series resistance (ohms)</li>
+      <li><span v-katex:auto>\(t\)</span> &mdash; time (seconds)</li>
       <li><span v-katex:auto>\(C\)</span> &mdash; capacitance of the capacitor (F)</li>
     </ul>
 
@@ -34,7 +34,7 @@
       <li><span v-katex:auto>\(C\)</span> &mdash; capacitance of the capacitor (F)</li>
       <li><span v-katex:auto>\(V_{max}\)</span> &mdash; charged capacitor's voltage (V)</li>
       <li><span v-katex:auto>\(V_{min}\)</span> &mdash; discharged voltage, min voltage that is still usable to application (V)</li>
-      <li><span v-katex:auto>\(I\)</span> &mdash; Current (A)</li>
+      <li><span v-katex:auto>\(I\)</span> &mdash; current (A)</li>
     </ul>
 
     <h3><span>2</span>Constant resistance discharge</h3>
@@ -43,7 +43,7 @@
     <div class="formula" v-katex:display="'R_{eq}=\\frac{V_{max}}{I}'"></div>
     <ul class="f-desc">
       <li><span v-katex:auto>\(C\)</span> &mdash; capacitance of the capacitor (F)</li>
-      <li><span v-katex:auto>\(R_{eq}\)</span> &mdash; Equivalent resistance (ohms)</li>
+      <li><span v-katex:auto>\(R_{eq}\)</span> &mdash; equivalent resistance (ohms)</li>
       <li><span v-katex:auto>\(V_{max}\)</span> &mdash; charged capacitor's voltage (V)</li>
       <li><span v-katex:auto>\(V_{min}\)</span> &mdash; discharged voltage, min voltage that is still usable to application (V)</li>
     </ul>
@@ -53,7 +53,7 @@
     <ul class="f-desc">
       <li><span v-katex:auto>\(C\)</span> &mdash; capacitance of the capacitor (F)</li>
       <li><span v-katex:auto>\(V_{max}\)</span> &mdash; charged capacitor's voltage (V)</li>
-      <li><span v-katex:auto>\(V_b\)</span> &mdash; Nominal battery voltage (V)</li>
+      <li><span v-katex:auto>\(V_b\)</span> &mdash; nominal battery voltage (V)</li>
     </ul>
 
 
@@ -62,8 +62,8 @@
     <h3><span>1</span>Constant current discharge</h3>
     <div class="formula" v-katex:display="'C=I \\cdot \\frac{t}{V_{max} - V_{min}}'"></div>
     <ul class="f-desc">
-      <li><span v-katex:auto>\(I\)</span> &mdash; Current (A)</li>
-      <li><span v-katex:auto>\(t\)</span> &mdash; Discharge time (seconds)</li>
+      <li><span v-katex:auto>\(I\)</span> &mdash; current (A)</li>
+      <li><span v-katex:auto>\(t\)</span> &mdash; discharge time (seconds)</li>
       <li><span v-katex:auto>\(V_{max}\)</span> &mdash; charged capacitor's voltage (V)</li>
       <li><span v-katex:auto>\(V_{min}\)</span> &mdash; discharged voltage (V)</li>
     </ul>
@@ -71,8 +71,8 @@
     <h3><span>2</span>Constant resistance discharge</h3>
     <div class="formula" v-katex:display="'C=\\frac{-t}{R_{eq} \\cdot ln(\\frac{V_{max}}{V_{min}})}'"></div>
     <ul class="f-desc">
-      <li><span v-katex:auto>\(t\)</span> &mdash; Discharge time (seconds)</li>
-      <li><span v-katex:auto>\(R_{eq}\)</span> &mdash; Equivalent resistance (ohms)</li>
+      <li><span v-katex:auto>\(t\)</span> &mdash; discharge time (seconds)</li>
+      <li><span v-katex:auto>\(R_{eq}\)</span> &mdash; equivalent resistance (ohms)</li>
       <li><span v-katex:auto>\(V_{max}\)</span> &mdash; charged capacitor's voltage (V)</li>
       <li><span v-katex:auto>\(V_{min}\)</span> &mdash; discharged voltage (V)</li>
     </ul>

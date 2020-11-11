@@ -55,6 +55,9 @@ export default {
   },
   methods: {
     onClose(id) {
+      if (this.capacitors.length == 1)
+        return;
+      
       for (let i = 0; i < this.capacitors.length; i++) {
         if (this.capacitors[i].id == id)
           this.capacitors.splice(i, 1);
@@ -77,6 +80,5 @@ export default {
   overflow-x: auto;
   margin: 0 16px 0 16px;
   padding-bottom: 16px;
-  
 }
 </style>
