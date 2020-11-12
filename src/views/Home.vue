@@ -2,7 +2,7 @@
   <div class="home">
     <Capacitor
       v-for="(capacitor) in capacitors"
-      :key="capacitor.id"
+      :key="capacitor.key"
       v-bind:value="capacitor"
       v-on:delete="onDelete"
       v-on:duplicate="onDuplicate"
@@ -12,6 +12,8 @@
 
 <script>
 import Capacitor from '@/components/Capacitor.vue'
+
+let key = 0;
 
 export default {
   components: {
@@ -53,6 +55,7 @@ export default {
       let maxId = Math.max(...this.capacitors.map(c => c.id));
 
       data.id = maxId + 1;
+      data.key = ++key;
       this.capacitors.push(data);
     },
     onUpdate(data) {
@@ -68,6 +71,7 @@ export default {
     getDefaultCapacitor() {
       return {
         id: 1,
+        key: ++key,
         vMax: 3.6,
         vMin: 1.8,
         cap: 1,

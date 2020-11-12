@@ -206,8 +206,7 @@ export default {
       const idleCurrent = this.getCurrent(idle.current, idle.currentUnit);
       const sleepTime = this.getTime(sleep.time, sleep.timeUnit);
       const sleepCurrent = this.getCurrent(sleep.current, sleep.currentUnit);
-      
-      var result = (runCurrent * runTime + idleCurrent * idleTime + sleepCurrent * sleepTime) / (runTime + idleTime + sleepTime);
+      let result = (runCurrent * runTime + idleCurrent * idleTime + sleepCurrent * sleepTime) / (runTime + idleTime + sleepTime);
 
       if (ldo) {
         const qCurrent = this.getCurrent(ldo.qCurr.value, ldo.qCurr.unit);
@@ -242,6 +241,8 @@ export default {
           return v / 1000;
         case 's':
           return v;
+        case 'm':
+          return v * 60;
         default:
           throw `Unknown unit ${unit}`
       }

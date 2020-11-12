@@ -23,7 +23,10 @@ export default {
           title: 'ms'
       }, {
           value: 's',
-          title: 's'
+          title: 'sec'
+      }, {
+          value: 'm',
+          title: 'min'
       }]
     };
   },
