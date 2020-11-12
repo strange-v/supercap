@@ -5,7 +5,7 @@
     <h3><span>1</span>Effective stored energy</h3>
     
     <p>Only part of the supercapacitor's stored energy is available to applications because, at some stage of discharge, the voltage becomes too low to be useful. The effective realized amount of energy <span v-katex:auto>\(W_{eff}\)</span> is reduced by the used voltage difference between <span v-katex:auto>\(V_{max}\)</span> and <span v-katex:auto>\(V_{min}\)</span> and can be represented as:</p>
-    <div class="formula" v-katex:display="'(W_{eff}=\\frac{1}{2} C \\cdot(V_{max}^2-V_{min}^2)'"></div>
+    <div class="formula" v-katex:display="'W_{eff}=\\frac{1}{2} C \\cdot(V_{max}^2-V_{min}^2)'"></div>
     <ul class="f-desc">
       <li><span v-katex:auto>\(C\)</span> &mdash; capacitance of the capacitor (F)</li>
       <li><span v-katex:auto>\(V_{max}\)</span> &mdash; charged capacitor's voltage (V)</li>
