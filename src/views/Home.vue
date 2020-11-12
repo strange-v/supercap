@@ -4,8 +4,9 @@
       v-for="(capacitor) in capacitors"
       :key="capacitor.id"
       v-bind:value="capacitor"
-      v-on:close="onClose"
-      v-on:duplicate="onDuplicate"/>
+      v-on:delete="onDelete"
+      v-on:duplicate="onDuplicate"
+      v-on:update="onUpdate"/>
   </div>
 </template>
 
@@ -18,7 +19,54 @@ export default {
   },
   data() {
     return {
-      capacitors: [{
+      capacitors: []
+    };
+  },
+  created() {
+    window.addEventListener('beforeunload', this.saveData)
+  },
+  mounted() {
+    if (localStorage.getItem('capacitors')) {
+      try {
+        this.capacitors = JSON.parse(localStorage.getItem('capacitors'));
+      } catch(e) {
+        localStorage.removeItem('capacitors');
+      }
+    } else {
+      this.capacitors = [this.getDefaultCapacitor()];
+    }
+  },
+  methods: {
+    onDelete(id) {
+      if (this.capacitors.length == 1) {
+        this.capacitors.shift();
+        this.capacitors.push(this.getDefaultCapacitor());
+        return;
+      }
+      
+      for (let i = 0; i < this.capacitors.length; i++) {
+        if (this.capacitors[i].id == id)
+          this.capacitors.splice(i, 1);
+      }
+    },
+    onDuplicate(data) {
+      let maxId = Math.max(...this.capacitors.map(c => c.id));
+
+      data.id = maxId + 1;
+      this.capacitors.push(data);
+    },
+    onUpdate(data) {
+      for (let i = 0; i < this.capacitors.length; i++) {
+        if (this.capacitors[i].id == data.id)
+          this.capacitors[i] = data;
+      }
+    },
+    saveData() {
+      const text = JSON.stringify(this.capacitors);
+      localStorage.setItem('capacitors', text);
+    },
+    getDefaultCapacitor() {
+      return {
         id: 1,
         vMax: 3.6,
         vMin: 1.8,
@@ -50,25 +98,12 @@ export default {
           },
           vOut: 1.9
         }
-      }]
-    };
-  },
-  methods: {
-    onClose(id) {
-      if (this.capacitors.length == 1)
-        return;
-      
-      for (let i = 0; i < this.capacitors.length; i++) {
-        if (this.capacitors[i].id == id)
-          this.capacitors.splice(i, 1);
-      }
-    },
-    onDuplicate(data) {
-      let maxId = Math.max(...this.capacitors.map(c => c.id));
-
-      data.id = maxId + 1;
-      this.capacitors.push(data);
+      };
     }
+  },
+  beforeRouteLeave(to, from, next) {
+    this.saveData();
+    next();
   }
 }
 </script>

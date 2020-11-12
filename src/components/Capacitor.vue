@@ -171,6 +171,22 @@ export default {
       }
 
       return result;
+    },
+    fieldChange() {
+      const result = {
+        id: this.id,
+        vMax: this.vMax,
+        vMin: this.vMin,
+        cap: this.cap,
+        esr: this.esr,
+        run: {...this.run},
+        idle: {...this.idle},
+        sleep: {...this.sleep},
+        ldoEnabled: this.ldoEnabled,
+        ldo: {...this.ldo}
+      };
+      
+      return result;
     }
   },
   methods: {
@@ -178,10 +194,9 @@ export default {
       this.$emit('duplicate', {...this._data});
     },
     onClose() {
-      this.$emit('close', this.id);
+      this.$emit('delete', this.id);
     },
     getLdoEfficiency(vMin, vMax, vOut) {
-      console.log((vOut / vMin + vOut / vMax) / 2)
       return (vOut / vMin + vOut / vMax) / 2;
     },
     getAvgCurrentConsumption(run, idle, sleep, ldo) {
@@ -230,6 +245,11 @@ export default {
         default:
           throw `Unknown unit ${unit}`
       }
+    }
+  },
+  watch: {
+    fieldChange(data) {
+      this.$emit('update', data);
     }
   },
   filters: {
