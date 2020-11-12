@@ -163,6 +163,9 @@ export default {
       return result;
     },
     crDischarge() {
+      if (this.vMin == 0)
+        return 'infinity';
+      
       const rEq = this.vMax / this.avgCurrent;
       let result = -1 * this.cap * rEq * Math.log(this.vMin/this.vMax);
 
@@ -284,6 +287,9 @@ export default {
         return fn(value, 'nA');
     },
     duration(v) {
+      if (typeof(v) === 'string')
+        return v;
+
       const y = Math.floor(v / (3600*24*365));
       const d = Math.floor(v / (3600*24));
       const h = Math.floor(v % (3600*24) / 3600);
