@@ -125,31 +125,12 @@ export default {
       return this.getAvgCurrentConsumption(this.run, this.idle, this.sleep, this.ldoEnabled ? this.ldo : null);
     },
     maxVoltageDrop() {
-      const runCurrent = this.getCurrent(this.run.current, this.run.currentUnit);
-      const idleCurrent = this.getCurrent(this.idle.current, this.idle.currentUnit);
-      const sleepCurrent = this.getCurrent(this.sleep.current, this.sleep.currentUnit);
-      const maxCurrent = Math.max(runCurrent, idleCurrent, sleepCurrent);
+      let maxCurrentMode = this.getMaxCurrentMode(this.run, this.idle, this.sleep);
 
-      return this.esr * maxCurrent;
+      return maxCurrentMode.c * (this.esr + maxCurrentMode.t / this.cap);
     },
     dCapacitor() {
-      const runTime = this.getTime(this.run.time, this.run.timeUnit);
-      const runCurrent = this.getCurrent(this.run.current, this.run.currentUnit);
-      const idleTime = this.getTime(this.idle.time, this.idle.timeUnit);
-      const idleCurrent = this.getCurrent(this.idle.current, this.idle.currentUnit);
-      const sleepTime = this.getTime(this.sleep.time, this.sleep.timeUnit);
-      const sleepCurrent = this.getCurrent(this.sleep.current, this.sleep.currentUnit);
-      
-      const modes = [{t: runTime, c: runCurrent}, {t: idleTime, c: idleCurrent}, {t: sleepTime, c: sleepCurrent}];
-      let maxCurrentMode = null;
-      for (let mode of modes) {
-        if (maxCurrentMode == null) {
-          maxCurrentMode = mode;
-          continue;
-        }
-        if (mode.c > maxCurrentMode.c)
-          maxCurrentMode = mode;
-      }
+      let maxCurrentMode = this.getMaxCurrentMode(this.run, this.idle, this.sleep);
 
       return maxCurrentMode.c * maxCurrentMode.t / 0.1;
     },
@@ -217,6 +198,27 @@ export default {
       }
 
       return result;
+    },
+    getMaxCurrentMode(run, idle, sleep) {
+      const runTime = this.getTime(run.time, run.timeUnit);
+      const runCurrent = this.getCurrent(run.current, run.currentUnit);
+      const idleTime = this.getTime(idle.time, idle.timeUnit);
+      const idleCurrent = this.getCurrent(idle.current, idle.currentUnit);
+      const sleepTime = this.getTime(sleep.time, sleep.timeUnit);
+      const sleepCurrent = this.getCurrent(sleep.current, sleep.currentUnit);
+      
+      const modes = [{t: runTime, c: runCurrent}, {t: idleTime, c: idleCurrent}, {t: sleepTime, c: sleepCurrent}];
+      let maxCurrentMode = null;
+      for (let mode of modes) {
+        if (maxCurrentMode == null) {
+          maxCurrentMode = mode;
+          continue;
+        }
+        if (mode.c > maxCurrentMode.c)
+          maxCurrentMode = mode;
+      }
+
+      return maxCurrentMode;
     },
     getCurrent(value, unit) {
       const v = parseFloat(value);
@@ -334,6 +336,7 @@ export default {
   margin-bottom: 16px;
   width: 350px;
   min-width: 350px;
+  box-sizing: border-box;
   border: 1px solid #ccc;
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 
@@ -381,7 +384,7 @@ export default {
       margin: 1px 8px 0 0;
     }
     .suffix {
-      width: 12px;
+      width: 16px;
       padding-left: 4px;
       overflow: hidden;
     }
@@ -414,6 +417,12 @@ export default {
     .additional-capacitor {
       margin-left: 8px;
     }
+  }
+}
+@media only screen and (max-width:480px) {
+  .capacitor {
+    width: 100%;
+    min-width: 100%;
   }
 }
 </style>

@@ -120,4 +120,12 @@ export default {
   margin: 0 16px 0 16px;
   padding-bottom: 16px;
 }
+
+@media only screen and (max-width:480px) {
+  .home {
+    display: block;
+    margin: 0;
+    padding: 0 12px;
+  }
+}
 </style>

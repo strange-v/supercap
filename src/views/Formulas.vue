@@ -104,10 +104,22 @@ h3 {
   font-size: 16px;
 }
 .f-desc {
-  margin: 0px 15%;
+  margin: 0px 15% 2em 15%;
 
   li {
     list-style-type: none;
+  }
+}
+
+@media only screen and (max-width:480px) {
+  .f-desc {
+    margin: 0;
+    padding: 0 8%;
+
+    li {
+      margin: 0;
+      pad: 0;
+    }
   }
 }
 </style>
