@@ -17,6 +17,7 @@
 </template>
 <script>
 import Vue from 'vue';
+import VueGtag from "vue-gtag";
 import VueKatex from 'vue-katex';
 import 'katex/dist/katex.min.css';
 
@@ -24,9 +25,11 @@ Vue.use(VueKatex, {
   globalOptions: {
   }
 });
+Vue.use(VueGtag, {
+  config: { id: 'G-7NHY04F1FE' }
+});
 
 export default {
-  
 }
 </script>
 <style lang="scss">

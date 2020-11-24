@@ -11,3 +11,10 @@
     </ul>
   </div>
 </template>
+<script>
+export default {
+  created() {
+    this.$gtag.event('About')
+  }
+}
+</script>

@@ -26,6 +26,7 @@ export default {
   },
   created() {
     window.addEventListener('beforeunload', this.saveData)
+    this.$gtag.event('Home')
   },
   mounted() {
     if (localStorage.getItem('capacitors')) {

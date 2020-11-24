@@ -86,6 +86,13 @@
 
   </div>
 </template>
+<script>
+export default {
+  created() {
+    this.$gtag.event('Formulas')
+  }
+}
+</script>
 <style lang="scss">
 h3 {
   span {
