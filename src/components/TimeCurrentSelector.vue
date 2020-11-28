@@ -2,12 +2,12 @@
 <div class="selector">
     <label>{{title}}</label>
     
-    <input type="text" v-model="time" autocomplete="off" @input="change"/>
+    <input type="text" v-model.number="time" autocomplete="off" @input="change"/>
     <Time class="unit" v-model="timeUnit" @input="change"/>
     
     <span class="spacer"></span>
     
-    <input type="text" v-model="current" autocomplete="off" @input="change"/>
+    <input type="text" v-model.number="current" autocomplete="off" @input="change"/>
     <Current class="unit" v-model="currentUnit" @input="change"/>
 </div>
 </template>

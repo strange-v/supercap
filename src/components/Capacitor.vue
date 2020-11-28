@@ -8,22 +8,22 @@
     <div class="inputs">
       <div class="row">
         <label :for="'vmax' + id">Nominal voltage (V<sub>max</sub>)</label>
-        <input type="text" :id="'vmax' + id" v-model="vMax" autocomplete="off"/>
+        <input type="text" :id="'vmax' + id" v-model.number="vMax" autocomplete="off"/>
         <span class="suffix">V</span>
       </div>
       <div class="row">
         <label :for="'vmin' + id">Discharge voltage (V<sub>min</sub>)</label>
-        <input type="text" :id="'vmin' + id" v-model="vMin" autocomplete="off"/>
+        <input type="text" :id="'vmin' + id" v-model.number="vMin" autocomplete="off"/>
         <span class="suffix">V</span>
       </div>
       <div class="row">
         <label :for="'cap' + id">Capacitance (C)</label>
-        <input type="text" :id="'cap' + id" v-model="cap" autocomplete="off"/>
+        <input type="text" :id="'cap' + id" v-model.number="cap" autocomplete="off"/>
         <span class="suffix" >F</span>
       </div>
       <div class="row">
         <label :for="'esr' + id">Equivalent series resistance (ESR)</label>
-        <input type="text" :id="'esr' + id" v-model="esr" autocomplete="off"/>
+        <input type="text" :id="'esr' + id" v-model.number="esr" autocomplete="off"/>
         <span class="suffix">Ω</span>
       </div>
       <div class="row">Current consumptions in different modes</div>
@@ -43,12 +43,12 @@
       <div v-if="ldoEnabled" class="ldo">
         <div class="row">
           <label :for="'ldoout' + id">Output voltage</label>
-          <input type="text" :id="'ldoout' + id" v-model="ldo.vOut" :disabled="!ldoEnabled" autocomplete="off"/>
+          <input type="text" :id="'ldoout' + id" v-model.number="ldo.vOut" :disabled="!ldoEnabled" autocomplete="off"/>
           <span class="suffix">V</span>
         </div>
         <!-- <div class="row">
           <label :for="'ldodrop' + id">Dropout voltage</label>
-          <input type="text" :id="'ldodrop' + id" v-model="ldo.vDrop" :disabled="!ldoEnabled" />
+          <input type="text" :id="'ldodrop' + id" v-model.number.lazy="ldo.vDrop" :disabled="!ldoEnabled" />
           <span class="suffix">V</span>
         </div> -->
         <CurrentSelector class="row" title="Quiescent current" v-model="ldo.qCurr" :disabled="!ldoEnabled"/>
